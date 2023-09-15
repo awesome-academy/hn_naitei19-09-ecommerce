@@ -24,6 +24,7 @@ public class Feedback {
     private String description;
 
     @Column(name = "rating", nullable = false)
+
     private double rating;
 
     // Getters and setters
@@ -33,6 +34,7 @@ public class Feedback {
     }
 
     public void setRating(double rating) {
+
         this.rating = rating;
     }
 

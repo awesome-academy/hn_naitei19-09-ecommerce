@@ -17,15 +17,20 @@ public class OrderDetail {
     private Product product;
 
     @Column(name = "price", nullable = false)
+
     private double price;
+
 
     @Column(name = "amount", nullable = false)
     private int amount;
 
     @Column(name = "total_money", nullable = false)
+
     private double totalMoney;
 
+
     // Getters and setters
+
 
 
     public double getPrice() {
@@ -41,6 +46,7 @@ public class OrderDetail {
     }
 
     public void setTotalMoney(double totalMoney) {
+
         this.totalMoney = totalMoney;
     }
 

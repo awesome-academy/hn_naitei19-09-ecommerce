@@ -1,6 +1,7 @@
 package com.example.ecommerce.model;
 
 import javax.persistence.*;
+
 import java.util.Date;
 
 @Entity
@@ -22,7 +23,9 @@ public class CartDetail {
     private int amount;
 
     @Column(name = "price", nullable = false)
+
     private double price;
+
 
     @Column(name = "total_money", nullable = false)
     private Date createdAt;
@@ -32,11 +35,13 @@ public class CartDetail {
 
     // Getters and setters
 
+
     public double getPrice() {
         return price;
     }
 
     public void setPrice(double price) {
+
         this.price = price;
     }
 

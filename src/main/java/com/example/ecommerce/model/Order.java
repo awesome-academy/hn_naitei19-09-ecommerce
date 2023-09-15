@@ -10,10 +10,12 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     @Column(name = "fullname", nullable = false)
     private String fullname;
 
     @Column(name = "phone_number", nullable = false)
+
     private int phoneNumber;
 
     @Column(name = "address", nullable = false)
