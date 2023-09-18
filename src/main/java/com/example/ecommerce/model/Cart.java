@@ -14,6 +14,10 @@ public class Cart {
     private User user;
 
     // Getters and setters
+
+    public Cart() {
+    }
+
     public Long getId() {
         return id;
     }
@@ -30,5 +34,7 @@ public class Cart {
     public void setUser(User user) {
         this.user = user;
     }
+
+
 
 }
