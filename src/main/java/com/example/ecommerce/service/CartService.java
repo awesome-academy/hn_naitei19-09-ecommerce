@@ -24,6 +24,9 @@ public class CartService {
         if (cart == null) {
             cart = new Cart();
             cart.setUser(user);
+
+            // Lưu giỏ hàng
+            cart = cartRepository.save(cart);
         }
 
         // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa

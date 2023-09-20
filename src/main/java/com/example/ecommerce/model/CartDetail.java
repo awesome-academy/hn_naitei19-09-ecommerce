@@ -24,11 +24,26 @@ public class CartDetail {
     @Column(name = "price", nullable = false)
     private double price;
 
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "created_at")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
-    @Column(name = "updated_at", nullable = false)
+    @Column(name = "updated_at")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = new Date(); // Set thời gian tạo mới
+        updatedAt = createdAt; // Ban đầu, updatedAt sẽ giống createdAt
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = new Date(); // Khi cập nhật, updatedAt sẽ được cập nhật lại
+        createdAt = createdAt; // createdAt sẽ không thay đổi
+    }
+
 
     // Getters and setters
 
