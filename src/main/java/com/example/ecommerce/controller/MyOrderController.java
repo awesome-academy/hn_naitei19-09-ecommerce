@@ -3,18 +3,21 @@ package com.example.ecommerce.controller;
 import com.example.ecommerce.model.Order;
 import com.example.ecommerce.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Controller
 public class MyOrderController {
 
-        Long userID = 4L;  // Refactor later
+        Long userID = 2L;  // Refactor later
+        Long cancelStatusID = 5L;
         @Autowired
         private OrderService orderService;
         @RequestMapping("/my-orders")
@@ -30,5 +33,11 @@ public class MyOrderController {
             model.addAttribute("orderTotal", order.getTotal());
             model.addAttribute("status", order.getStatus().getDescription().getStatus());
             return "user/orders/detail/index";
+        }
+        @PostMapping("/cancel-order/{orderCode}")
+        public String cancelOrder(@PathVariable("orderCode") String orderCode, @RequestParam("reason") String reason, Model model) {
+            Order order = orderService.findOrderByOrderCode(orderCode);
+            orderService.updateOrderStatus(order.getId(),cancelStatusID,reason);
+            return "redirect:/my-orders";
         }
 }

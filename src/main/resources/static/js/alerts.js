@@ -302,3 +302,53 @@ function showToast(content) {
 		$("#snackbar").removeClass("show");
 	}, 3000);
 }
+
+function confirmActivation(button) {
+    var userId = $(button).attr("data-id");
+    swal({
+        title: "Activate this user?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+    .then((confirmation) => {
+        if (confirmation) {
+            $.post('/admin/users/activate-user/' + userId, function(data) {
+                swal("User activated successfully", {
+                    icon: "success",
+                }).then(() => {
+                    location.reload(); // Reload the page
+                });
+            }).fail(function() {
+                swal("Failed to activate user", {
+                    icon: "error",
+                });
+            });
+        }
+    });
+}
+
+function confirmDeactivation(button) {
+    var userId = $(button).attr("data-id");
+    swal({
+        title: "Deactivate this user?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+    .then((confirmation) => {
+        if (confirmation) {
+            $.post('/admin/users/deactivate-user/' + userId, function(data) {
+                swal("User deactivated successfully", {
+                    icon: "success",
+                }).then(() => {
+                    location.reload(); // Reload the page
+                });
+            }).fail(function() {
+                swal("Failed to deactivate user", {
+                    icon: "error",
+                });
+            });
+        }
+    });
+}

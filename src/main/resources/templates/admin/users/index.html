@@ -7,7 +7,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <h3 class="card-title">User List</h3>
+                            <h3 class="card-title"><a th:href="@{/admin/users/}">Users List</a> </h3>
                             <div class="d-flex">
                                 <form th:action="@{/admin/users/}" method="get">
                                     <div class="input-group">
@@ -49,15 +49,13 @@
                                         <span class="badge bg-light" th:case="*">Unknown</span>
                                     </td>
                                     <td class="text-center">
-
-                                        <a class="btn btn-primary" th:if="${user.accountStatus.getStatus() == 'INACTIVE'}" th:href="@{'/admin/activate-user/' + ${user.id}}">
-                                            Active
-                                        </a>
-                                        <a class="btn btn-danger" th:if="${user.accountStatus.getStatus() == 'ACTIVE'}" th:href="@{'/admin/deactivate-user/' + ${user.id}}">
-                                            Ban
-                                        </a>
+                                        <button class="btn btn-primary" th:if="${user.accountStatus.getStatus() == 'INACTIVE'}"
+                                                th:attr="data-id=${user.id}" id="activate-id"
+                                                onclick="confirmActivation(this)">Activate</button>
+                                        <button class="btn btn-danger" th:if="${user.accountStatus.getStatus() == 'ACTIVE'}"
+                                                th:attr="data-id=${user.id}" id="deactivate-id"
+                                                onclick="confirmDeactivation(this)">Deactivate</button>
                                     </td>
-
 
                                 </tr>
                                 </tbody>
@@ -67,7 +65,7 @@
                                     <!-- Previous Page -->
                                     <li th:if="${pageInfo.hasPrevious()}" class="page-item">
                                         <a class="page-link"
-                                           th:href="@{${#httpServletRequest.requestURI}(page=${pageInfo.previousPageable().pageNumber})}">&laquo;</a>
+                                           th:href="@{${#httpServletRequest.requestURI}(page=${pageInfo.previousPageable().pageNumber},  fullname=${fullname})}">&laquo;</a>
                                     </li>
 
                                     <!-- Page Numbers -->
@@ -79,10 +77,11 @@
                                     <!-- Next Page -->
                                     <li th:if="${pageInfo.hasNext()}" class="page-item">
                                         <a class="page-link"
-                                           th:href="@{${#httpServletRequest.requestURI}(page=${pageInfo.nextPageable().pageNumber})}">&raquo;</a>
+                                           th:href="@{${#httpServletRequest.requestURI}(page=${pageInfo.nextPageable().pageNumber},  fullname=${fullname})}">&raquo;</a>
                                     </li>
                                 </ul>
                             </div>
+
                         </div>
                         <!-- /.card-body -->
                     </div>

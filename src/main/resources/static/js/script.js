@@ -347,3 +347,37 @@ function toggleReviewInput() {
   return false;
 }
 
+<<<<<<< HEAD
+=======
+function showCancelConfirmation(buttonElement) {
+    var dataId = buttonElement.getAttribute('data-id');
+    swal({
+        title: 'Confirm Order Cancellation',
+        text: 'Are you sure you want to cancel this order? \n Please input reason',
+        content: {
+            element: "input",
+            attributes: {
+                placeholder: "Input reason here",
+                type: "text",
+            },
+        },
+        icon: "warning",
+        buttons: {
+            cancel: "No, keep it",
+            confirm: "Yes, cancel it",
+        },
+    })
+    .then((reason) => {
+        if (reason) {
+            // Send the reason to the backend to save to the database
+            $.post('/cancel-order/' + dataId, { reason: reason })
+                .done(function(response) {
+                    swal('Order Cancelled!', 'The order has been cancelled.', 'success').then(() => {location.reload();});
+                })
+                .fail(function() {
+                    swal('Error', 'Failed to cancel the order.', 'error').then(() => {location.reload();});
+                });
+        }
+    });
+}
+>>>>>>> upstream/master

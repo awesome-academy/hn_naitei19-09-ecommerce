@@ -1,17 +1,14 @@
 package com.example.ecommerce.controller.admin;
 
 
-import com.example.ecommerce.model.Order;
 import com.example.ecommerce.model.User;
 import com.example.ecommerce.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/admin/users")
@@ -27,11 +24,8 @@ public class UsersController {
                              @RequestParam(defaultValue = "0") int page,
                              @RequestParam(defaultValue = "7") int size) {
         Page<User> userPage;
-        if (fullname.isEmpty()) {
-            userPage = userService.findAllPaginated(page, size, "fullname", "asc");
-        } else {
-            userPage = userService.searchByFullname(fullname, page, size, "fullname", "asc");
-        }
+
+        userPage = userService.searchByFullname(fullname, page, size, "fullname", "asc");
 
         model.addAttribute("usersPage", userPage);
         model.addAttribute("users", userPage.getContent());
@@ -40,6 +34,18 @@ public class UsersController {
         model.addAttribute("fullname", fullname);
 
         return "admin/users/index";
+    }
+
+    @PostMapping("/activate-user/{id}")
+    public String activateUser(@PathVariable Long id) {
+        userService.activateUser(id);
+        return "redirect:/admin/users/";
+    }
+
+    @PostMapping("/deactivate-user/{id}")
+    public String deactivateUser(@PathVariable Long id) {
+        userService.deactivateUser(id);
+        return "redirect:/admin/users/";
     }
 
 

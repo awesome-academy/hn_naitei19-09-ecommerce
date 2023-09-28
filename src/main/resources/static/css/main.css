@@ -1046,6 +1046,7 @@ ul {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 75.5px;
 }
 
 .badge-large {
@@ -1063,17 +1064,6 @@ body {
     flex: 1;
 }
 
-.view-detail-button {
-  background-color: #007bff;
-  color: #fff;
-  border: 1px solid #007bff;
-  padding: 5px 10px;
-  text-decoration: none;
-  border-radius: 3px;
-}
-
-.view-detail-button:hover {
-  background-color: #0056b3;
-  color: #fff;
-  border: 1px solid #0056b3;
+tbody {
+    box-sizing: unset !important;
 }

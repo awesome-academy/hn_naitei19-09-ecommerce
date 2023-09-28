@@ -23,6 +23,8 @@ public interface ProductService {
 	  
 	    List<Product> searchByCategory(Integer categoryId, String query);
 
+		Product getReferenceById(Integer id);
+
 
 
 }

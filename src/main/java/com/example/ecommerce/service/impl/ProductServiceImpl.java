@@ -42,4 +42,9 @@ public class ProductServiceImpl  implements ProductService  {
 		return productRepository.searchByCategory(categoryId, query);
 	}
 
+	@Override
+	public Product getReferenceById(Integer id) {
+		return productRepository.getReferenceById(id);
 }
+}
+	

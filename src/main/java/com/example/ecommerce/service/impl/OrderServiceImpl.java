@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -74,13 +75,15 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public void updateOrderStatus(Long orderId, Long newStatusId, String reason) {
         Order order = orderRepository.findById(orderId).orElse(null);
-
         if (order != null) {
             // Retrieve the new Status from the database based on the newStatusId
             Status newStatus = statusRepository.findById(newStatusId).orElse(null);
             if (newStatus != null) {
+                if(order.getStatus().getDescription() != OrderStatus.PENDING && newStatus.getDescription() == OrderStatus.CANCELLED) {
+                    throw new RuntimeException("Failed to cancel the order.");
+                }
                 // Check if the status is changing from REJECTED to another status
-               if(newStatus.getDescription() == OrderStatus.REJECTED){
+               if(newStatus.getDescription() == OrderStatus.REJECTED || newStatus.getDescription() == OrderStatus.CANCELLED ){
                    if(reason == null || reason.isEmpty()){
                        order.setReason("No reason");
                    }
@@ -93,8 +96,9 @@ public class OrderServiceImpl implements OrderService {
                 // Save the updated order
                 orderRepository.save(order);
             }
+        } else {
+            throw new RuntimeException("Cant find order.");
         }
-
     }
     @Override
     public Page<Order> findAllPaginated(int page, int size, String sortField, String sortOrder) {

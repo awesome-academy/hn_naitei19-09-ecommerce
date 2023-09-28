@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import com.example.ecommerce.dao.CategoryRepository;
 import com.example.ecommerce.dao.ProductRepository;
 import com.example.ecommerce.model.Category;
 import com.example.ecommerce.model.Product;
@@ -41,7 +41,12 @@ public class HomeController {
 	    return "search_results";
 	}
 	
-	
+	@GetMapping("/showProduct")
+	public String productDetail(@RequestParam(name = "product_id", required = false) Integer id, Model m) {
+		Product product = this.productService.getReferenceById(id);
+		m.addAttribute("product", product);
+		return "show_product";
+	}
 	
 
 }
