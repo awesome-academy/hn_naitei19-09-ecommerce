@@ -8,13 +8,5 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class UserController {
 
-    @Autowired
-    private UserService userService;
-
-    // display list of employees
-    @GetMapping("/")
-    public String viewHomePage(Model model) {
-        model.addAttribute("listUsers", userService.findAll());
-        return "index";
-    }
+    
 }

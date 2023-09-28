@@ -6,6 +6,129 @@
 <div class="content">
     <h1>Welcome to Our E-Commerce App</h1>
 </div>
+
+<div class="container mt-3">
+    <div class="row">
+        
+        <div class="row mt-2 g-4">
+            <div class="col-md-3">
+                <div class="card p-1 shadowed-2">
+                    <div class="d-flex justify-content-between align-items-center p-2">
+                        <a th:href="@{/products?category=Mobile}" class="stretched-link"></a>
+                        <div class="flex-column lh-1 imagename">
+                            <span>Mobile</span> <span>Phones</span>
+                        </div>
+                        <div>
+                            <img src="https://vcdn-sohoa.vnecdn.net/2023/09/14/IP-4783-1694657584.jpg" height="100"
+                                width="100" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card p-1 shadowed-2">
+                    <div class="d-flex justify-content-between align-items-center p-2">
+                        <a th:href="@{/products?category=Watch}" class="stretched-link"></a>
+                        <div class="flex-column lh-1 imagename">
+                            <span>Smart</span> <span>Watches</span>
+                        </div>
+                        <div>
+                            <img src="https://m.media-amazon.com/images/I/61fTrWJX5JL._AC_UF1000,1000_QL80_.jpg" height="100"
+                                width="100" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card p-1 shadowed-2">
+                    <div class="d-flex justify-content-between align-items-center p-2">
+                        <a th:href="@{/products?category=Tablet}" class="stretched-link"></a>
+                        <div class="flex-column lh-1 imagename">
+                             <span>Tablet</span>
+                        </div>
+                        <div>
+                            <img src=" https://cdn-amz.woka.io/images/I/71Mt4JAZQtL.jpg" height="100"
+                                width="100" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card p-1 shadowed-2">
+                    <div class="d-flex justify-content-between align-items-center p-2">
+                        <a th:href="@{/products?category=Laptop}" class="stretched-link"></a>
+                        <div class="flex-column lh-1 imagename">
+                            <span>Laptops</span>
+                        </div>
+                        <div>
+                            <img src="https://i.imgur.com/6pK5oZl.jpg" height="100"
+                                width="100" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+
+<center>
+    <hr class="divider">
+</center>
+
+<h3 class="text-center">⭐ Hot Product⭐</h3>
+
+<center>
+    <hr class="divider">
+</center>
+
+<br>
+<div class="container">
+    <div class="row">
+
+        <div th:each="p : ${products}" class="col-md-6 col-lg-3 mb-2">
+
+                    <div class="card shadowed-1 h-100 border-0 animation">
+                
+                        <div class="card-body">
+                            
+                            <div class="container text-center">
+                                <img th:src="${p.image}" height="100"
+                                width="100" alt="Product Image" />
+                            </div>
+                            <a th:href="'/showProduct?product_id='+${p.id}" id="product-name" class="text-center card-title justify-content-center fs-13">[(${p.name})]</a>
+                            <div class="row">
+                                
+                                <div class="col col-sm-6 text-start">
+                                    <p class="text-start fs-13 text-bg-color">VND: [(${#numbers.formatDecimal(p.price,
+                                        0, 'COMMA', 0, 'POINT')})]</p>
+                                </div>
+                            </div>
+        
+                            <div class="container text-center">
+                                <button th:onclick="addToCart([[${p.id}]], [[${p.name}]],[[${p.price}]])" type="button"
+                                    class="btn primary-background text-white col-12">Add to
+                                    Cart</button>
+                            </div>
+        
+                        </div>
+        
+
+
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+
+   
+
+
+</div>
 <div th:replace="fragments/base-layout :: footer"></div>
 </body>
 </html>

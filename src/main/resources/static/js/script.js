@@ -347,6 +347,7 @@ function toggleReviewInput() {
   return false;
 }
 
+
 function showCancelConfirmation(buttonElement) {
     var dataId = buttonElement.getAttribute('data-id');
     swal({
