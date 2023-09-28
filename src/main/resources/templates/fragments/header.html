@@ -2,6 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <header class="section-header">
+    <script>
+        document.getElementById('searchForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            var searchInput = document.getElementById('searchInput').value;
+            var category = document.getElementById('categorySelect').value;
+            var url = "/search?query=" + encodeURIComponent(searchInput) + "&category=" + encodeURIComponent(category);
+            window.location.href = url; 
+        });
+    </script>
     <section class="header-main">
         <div class="container">
             <div class="row gy-3 align-items-center">
@@ -48,13 +57,12 @@
                 <div class="col-lg-5 col-md-12 col-12">
                     <form action="/search" class="">
                         <div class="input-group">
-                            <input type="search" name="query" class="form-control"
-                                   style="width: 35%;" placeholder="Search for product here">
-                            <select class="form-select" name="category">
-                                <option value="AllCategories" selected>All Categories</option>
-                                <option th:each="category : ${categories}"
-                                        th:value="${category.title}">[(${category.title})]</option>
-                            </select>
+                            <input type="search" id="searchInput" name="query" class="form-control" style="width: 35%;"
+                                    placeholder="Search for product here">
+                                <select class="form-select" name="category">
+                                    <option value="-1" selected>All Categories</option>
+                                    <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+                                </select>
                             <button class="btn primary-background text-white">
                                 <i class="fa fa-search"></i>
                             </button>
