@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/base-layout :: html_head(title='Product List')"></div>
+
+<body>
+    <div th:replace="fragments/base-layout :: header"></div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Product List</h1>
+                <div class="row">
+                    <div th:each="p : ${products}" class="col-md-6 col-lg-3 mb-2">
+
+                        <div class="card shadowed-1 h-100 border-0 animation">
+                    
+                            <div class="card-body">
+                                
+                                <div class="container text-center">
+                                    <img th:src="${p.image}" height="100"
+                                    width="100" alt="Product Image" />
+                                </div>
+                                <a th:href="@{/{product_id}(product_id=${p.id})}" id="product-name" class="text-center card-title justify-content-center fs-13">[(${p.name})]</a>
+                                <div class="row">
+                                    
+                                    <div class="col col-sm-6 text-start">
+                                        <p class="text-start fs-13 text-bg-color">VND: [(${#numbers.formatDecimal(p.price,
+                                            0, 'COMMA', 0, 'POINT')})]</p>
+                                    </div>
+                                </div>
+            
+                                <div class="container text-center">
+                                    <button th:onclick="addToCart([[${p.id}]], [[${p.name}]],[[${p.price}]])" type="button"
+                                        class="btn primary-background text-white col-12">Add to
+                                        Cart</button>
+                                </div>
+            
+                            </div>
+            
+    
+    
+                </div>
+    
+    
+            </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="fragments/base-layout :: footer"></div>
+</body>
+
+</html>
