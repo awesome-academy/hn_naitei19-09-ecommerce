@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr" xmlns:th="http://www.w3.org/1999/xhtml">
+<!--<div th:replace="fragments/base-layout :: header(title='Log in')"></div>-->
+<head>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/auth.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="main">
+    <div class="container" >
+        <form class="form" method="post" th:action="@{/login}" th:object="${user}">
+            <h2 class="form_title title">
+                <a href="/" class="navbar-brand"> <img class="ml-minus40" height="70" src="/images/logo.jpg"></a>
+                Sign In
+            </h2>
+            <div class="form__icons">
+                <img class="form__icon" src="images/facebook_logo.png" alt="Icon 1">
+                <img class="form__icon" src="images/google_logo.png" alt="Icon 2">
+            </div>
+            <span class="form__span">or use your email account</span>
+            <input class="form__input" th:field="*{email}" required  type="text" name="email" placeholder="Email"/>
+            <input class="form__input" th:field="*{password}" required  type="password" name="password" placeholder="Password"/>
+            <a class="form__link">Forgot your password?</a>
+
+            <div th:if="${loginError}" class="alert alert-danger form_login_error">
+                <span th:text="${loginError}"></span>
+            </div>
+            <button class="form__button button" type="submit">SIGN IN</button>
+        </form>
+    </div>
+    <div class="switch" id="switch-cnt">
+        <div class="switch__container" id="switch-c1">
+            <h2 class="switch__title">Hello !</h2>
+            <p class="switch__description description">Enter your personal details and start shopping with us</p>
+            <a th:href="@{/registration}"> <button class="button">SIGN UP</button>></a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

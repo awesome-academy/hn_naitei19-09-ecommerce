@@ -26,6 +26,7 @@ body {
 
 /**/
 .main {
+  position: relative;
   width: 1000px;
   height: 600px;
   padding: 25px;
@@ -43,6 +44,8 @@ body {
   padding: 25px;
   background-color: #FDFDFD;
   transition: 1.25s;
+  z-index: 100;
+  left: calc(100% - 600px );
 }
 
 .form {
@@ -94,8 +97,29 @@ body {
   z-index: 200;
   bottom: calc(100% - 500px );
 }
+.form_login_error{
+  position: absolute;
+  z-index: 200;
+  bottom: calc(100% - 475px );
+}
 .alert {
   --bs-alert-padding-y: 0.5rem;
+}
+.alert-success {
+    padding: 15px;
+    background-color: #4CAF50; /* Màu nền xanh lá cây */
+    color: white; /* Màu chữ trắng */
+    border-radius: 4px; /* Bo tròn viền */
+    margin-bottom: 10px; /* Khoảng cách dưới cùng */
+    text-align: center; /* Căn giữa nội dung */
+}
+.alert-danger {
+    padding: 15px;
+    background-color: #f44336; /* Màu nền đỏ */
+    color: white; /* Màu chữ trắng */
+    border-radius: 4px; /* Bo tròn viền */
+    margin-bottom: 10px; /* Khoảng cách dưới cùng */
+    text-align: center; /* Căn giữa nội dung */
 }
 
 .title {

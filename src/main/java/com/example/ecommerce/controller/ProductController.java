@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.example.ecommerce.config.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +28,7 @@ public class ProductController {
 	private CategoryService categoryService;
 
 	@GetMapping("categories/{categoryId}/products")
-	public String index(@PathVariable(name = "categoryId") Integer categoryId, Model model,
+	public String index(@PathVariable(name = "categoryId") Integer categoryId, Model model, HttpSession session,
 			HttpServletResponse response) throws IOException {
 		
 		if (categoryId == null) {
@@ -35,6 +37,9 @@ public class ProductController {
 			model.addAttribute("errorMessage", errorMessage);
 			return "error";
 		}
+
+		UserDetailsImpl currentUser = (UserDetailsImpl) session.getAttribute("currentUser");
+		model.addAttribute("user", currentUser);
 		List<Product> products = this.productService.getProductsByCategory(categoryId);
 		model.addAttribute("products", products);
 		return "products/index";
