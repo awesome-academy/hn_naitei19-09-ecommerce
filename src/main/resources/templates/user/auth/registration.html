@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<div th:replace="fragments/base-layout :: html_head(title='Sign up')"></div>
+<!--<div th:replace="fragments/base-layout :: html_head(title='Sign up')"></div>-->
 <head>
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
     <meta charset="utf-8">
@@ -11,14 +11,13 @@
 <!--<div th:replace="fragments/base-layout :: header"></div>-->
 
 <div class="main">
-    <div class="container a-container" id="a-container">
+    <div class="container " >
         <div class="alert alert-success registration_success" th:if="${registrationSuccess == true}" >
             <span> Registration completed successfully </span>
         </div>
-        <form class="form" id="a-form" method="post" th:action="@{/registration}" th:object="${user}">
+        <form class="form" method="post" th:action="@{/registration}" th:object="${user}">
             <h2 class="form_title title">
-                <a href="/" class="navbar-brand"> <img class="ml-minus40" height="70" src="/images/logo.jpg">
-                </a>
+                <a href="/" class="navbar-brand"><img class="ml-minus40" height="70" src="/images/logo.jpg"></a>
                 Create Account
             </h2>
             <div class="form__icons">
@@ -30,6 +29,7 @@
             <input class="form__input" th:field="*{email}" required  type="text" placeholder="Email">
             <input class="form__input" th:field="*{password}" required  type="password" placeholder="Password">
             <input class="form__input" th:field="*{confirmPassword}" required  type="password" placeholder="Confirm Password">
+
             <div th:if="${error != null}" class="alert alert-danger form_error">
                 <span th:text="${error}"></span>
             </div>
@@ -45,7 +45,6 @@
     </div>
 </div>
 
-<!--<div th:replace="fragments/base-layout :: footer"></div>-->
 
 <script>
     var registrationSuccess = [[${registrationSuccess}]];
@@ -55,6 +54,5 @@
         }, 2000);
     }
 </script>
-
 </body>
 </html>

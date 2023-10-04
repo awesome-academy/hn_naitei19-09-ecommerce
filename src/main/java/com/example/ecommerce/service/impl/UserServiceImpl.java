@@ -1,7 +1,12 @@
 package com.example.ecommerce.service.impl;
-
 import com.example.ecommerce.dto.UserRegistrationDto;
+import java.util.*;
+//import com.example.ecommerce.DTO.UserLoginDto;
 import com.example.ecommerce.dao.RoleRepository;
+import com.example.ecommerce.exeptions.LoginException;
+import com.example.ecommerce.exeptions.RegistrationException;
+import com.example.ecommerce.model.Role;
+import org.apache.log4j.Logger;
 import com.example.ecommerce.dao.UserRepository;
 import com.example.ecommerce.exeptions.RegistrationException;
 import com.example.ecommerce.model.AccountStatus;
@@ -15,6 +20,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -30,7 +39,8 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
-
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public List<User> findAll() {
@@ -55,7 +65,7 @@ public class UserServiceImpl implements UserService {
                 Role role = roleRepository.findById(1).orElse(null);
                 User user = new User(
                         registrationDto.getName(), registrationDto.getEmail(),
-                        registrationDto.getPassword(), role);
+                        passwordEncoder.encode(registrationDto.getPassword()), role);
                 return userRepository.save(user);
             } else {
                 throw new RegistrationException("Email already exists");
@@ -68,6 +78,20 @@ public class UserServiceImpl implements UserService {
 
 
 
+//    @Override
+//    public User login(UserLoginDto loginDto) {
+//        User existsUser = userRepository.findByEmail(loginDto.getEmail());
+//        if(existsUser != null) {
+//            if(loginDto.getPassword().equals(existsUser.getPassword())){
+//                return existsUser;
+//            }else{
+//                return null;
+//            }
+//        }else{
+//            return null;
+//        }
+//
+//    }
     @Override
     public Page<User> searchByFullname(String name, int page, int size, String sortField, String sortOrder) {
         try {
@@ -119,4 +143,5 @@ public class UserServiceImpl implements UserService {
         }
         return false;
     }
+
 }

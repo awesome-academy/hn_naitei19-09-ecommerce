@@ -23,25 +23,23 @@
 						<div th:if="${user!=null}" class="btn-group">
 							<button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown"
 								aria-expanded="false">
-								<img height="20" width="20" class="rounded-circle"
-									th:src="'/users_profile/'+${user.profile}">&nbsp;<span
-									class="ms-1 d-none d-sm-inline-block">[(${user.name})]</span>
+								<span class="ms-1 d-none d-sm-inline-block">[(${user.username})]</span>
 							</button>
+<!--							<div th:text="${user.authorities[0]}"></div>-->
 							<ul class="dropdown-menu">
-								<li><a href="/admin/home" th:if="${user.role == 'ROLE_ADMIN'}"
-										class="dropdown-item">Admin Panel</a>
-								<li><a href="/myOrders" th:if="${user.role == 'ROLE_USER'}" class="dropdown-item">My
+								<li><a href="/myOrders" th:if="${user.authorities[0] == 'USER'}" class="dropdown-item">My
 										Orders</a>
 								<li><a class="dropdown-item" href="/profile">Profile
 										Setting</a></li>
 								<li><a class="dropdown-item" href="/logout">Logout</a></li>
 							</ul>
+<!--							<div></div>-->
 						</div>
 						<a th:unless="${user!=null}" href="/login" class="btn btn-light">
 							<i class="fa fa-user"></i> <span class="ms-1 d-none d-sm-inline-block">Sign in </span>
 						</a>
-						<button th:unless="${user!=null} and ${user.role == 'ROLE_ADMIN'}" data-bs-toggle="modal"
-							data-bs-target="#cart-modal" class="btn btn-light">
+						<button th:if="${user!=null}" data-bs-toggle="modal"
+								data-bs-target="#cart-modal" class="btn btn-light">
 							<i class="fa fa-shopping-cart"></i>
 							<span class="ms-1">
 								<a th:href="@{/cart}" class="btn btn-light">
@@ -50,7 +48,7 @@
 								<span class="badge primary-background text-white cart-items">1</span>
 							</span>
 						</button>
-						<a th:href="@{/my-orders}" class="btn btn-light">
+						<a th:href="@{/orders/my-orders}" class="btn btn-light">
 							<i class="fa fa-shopping-bag"></i> <span class="ms-1">My Orders</span>
 						</a>
 					</div>

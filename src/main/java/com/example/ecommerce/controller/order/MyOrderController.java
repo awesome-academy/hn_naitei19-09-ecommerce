@@ -1,5 +1,6 @@
 package com.example.ecommerce.controller.order;
 
+import com.example.ecommerce.config.UserDetailsImpl;
 import com.example.ecommerce.model.*;
 import com.example.ecommerce.service.OrderService;
 import com.example.ecommerce.service.CartService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import com.example.ecommerce.controller.order.request.OrderRequest;
 import org.springframework.http.ResponseEntity;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,10 +40,12 @@ public class MyOrderController {
 //        @Autowired
 //        private ProductRepository productRepository;
 
-//        @RequestMapping("/my-orders")
-        public String index(Model map) {
+        @RequestMapping("/my-orders")
+        public String index(Model map, HttpSession session) {
             List<Order> orders = orderService.findByUserId(userID);
             map.addAttribute("orders" , orders);
+            UserDetailsImpl currentUser = (UserDetailsImpl) session.getAttribute("currentUser");
+            map.addAttribute("user", currentUser);
             return "user/orders/index";
         }
 
